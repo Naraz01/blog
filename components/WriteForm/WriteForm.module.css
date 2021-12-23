@@ -1,0 +1,16 @@
+.titleField {
+  width: 100%;
+}
+.titleField:before, .titleField:after {
+  display: none !important;
+}
+.titleField input {
+  font-size: 26px !important;
+}
+
+.editor {
+  font-size: 16px;
+  height: calc(100vh - 220px);
+}
+
+/*# sourceMappingURL=WriteForm.module.css.map */
