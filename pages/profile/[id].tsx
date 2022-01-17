@@ -6,8 +6,39 @@ import {
 } from "@mui/icons-material";
 import {MainLayout} from "../../layouts/MainLayout";
 import {Post} from "../../components/Post";
+import React from "react";
+import { useRouter } from 'next/router'
+import { UserApi } from "../../utils/api/user";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { PostItem, userItem } from "../../utils/api/types";
 
 export default function Profile() {
+    const router = useRouter()
+    const userId = router.query.id;
+
+    const [user, setUser] = React.useState<userItem>();
+    const [news, setNews] = React.useState();
+    const {posts} = useSelector((state : RootState ) => {
+        return {
+            posts: state.posts.data
+        }
+    });
+    React.useEffect(() => {
+        if(!router.isReady) return;
+        const id = router.query.id;
+        (async () => {
+            const data = await UserApi.getMe(id);
+            setUser(data)
+        })()
+    }, [router.isReady])
+
+    React.useEffect(() => {
+        const data = posts?.filter((item:any) => {
+            return item.id == userId;
+        })
+        setNews(data)
+    },[userId])
     return (
         <MainLayout contentFullWidth hideComments>
             <Paper className="pl-20 pr-20 pt-20 mb-30" elevation={0}>
@@ -17,8 +48,8 @@ export default function Profile() {
                             style={{width: 120, height: 120, borderRadius: 6}}
                             src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80"
                         />
-                        <Typography style={{fontWeight: 'bold'}} className="mt-10" variant={h4}>
-                            Amon Bower
+                        <Typography style={{fontWeight: 'bold'}} className="mt-10" variant='h4'>
+                            {user?.name} {user?.surname}
                         </Typography>
                     </div>
                     <div>
@@ -29,10 +60,6 @@ export default function Profile() {
                                 <SettingsIcon/>
                             </Button>
                         </Link>
-                        <Button style={{height: 42}} variant="contained" color="primary">
-                            <MessageIcon className="mr-10"/>
-                            Написать
-                        </Button>
                     </div>
                 </div>
                 <div className="d-flex md-10 mt-10">
@@ -45,27 +72,25 @@ export default function Profile() {
 
                 <Tabs className="mt-20" value={0} indicatorColor="primary" textColor="primary">
                     <Tab label="Статьи"/>
-                    <Tab label="Комментарии"/>
-                    <Tab label="Закладки"/>
                 </Tabs>
             </Paper>
             <div className="d-flex align-start">
                 <div className="mr-20 flex">
-                    <Post />
+                {
+                    posts?.map((item:PostItem, i:number ) => {
+                        return (
+                            <Post 
+                                title = {item.title} 
+                                body = {item.body} 
+                                id = {item.id} 
+                                user = {item.user} 
+                                createAt = {item.createAt} 
+                                key = {i} 
+                            />
+                        )
+                    })
+                }
                 </div>
-                <Paper style={{width: 300}} className="p-20 mb-20" elevation={0}>
-                    <b>Подписчики</b>
-                    <div className="d-flex mt-15">
-                        <Avatar
-                            className="mr-10"
-                            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80"
-                        />
-                        <Avatar
-                            className="mr-10"
-                            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80"
-                        />
-                    </div>
-                </Paper>
             </div>
         </MainLayout>
     )

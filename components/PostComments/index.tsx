@@ -3,36 +3,35 @@ import {Divider, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {Comment} from "../Comment";
 import { AddCommentForm } from '../AddCommentForm';
 
-type CommentObj = {
-    text: string;
-    id: number;
-    createdAt: string;
-    user: {
-        fullname: string;
-        avatarUrl: string
-    }
+interface CommentItem {
+    id: number,
+    text: string,
+    userId: number,
+    postId: number,
+    createAt: string,
+}
+interface CommentsProps {
+    comments: [CommentItem],
+    newsId: number,
+    addComment: any,
+    deleteComment: any;
 }
 
-interface PostCommentsProps {
-    items: CommentObj[]
-}
-
-export const PostComments: React.FC<PostCommentsProps> = ({ items }) => {
+export const PostComments: React.FC<CommentsProps> = ({comments, newsId, addComment, deleteComment}) => {
     return (
         <Paper elevation={0} className="mt-40 p-30">
             <div className="container">
                 <Typography variant="h6" className="mb-20">
-                    42 комментария
+                    {
+                        comments && comments.length < 0 ? '' : comments.length
+                    } 
+                     комментария
                 </Typography>
-                <Tabs className="mt-20" value={0} indicatorColor="primary" textColor="primary">
-                    <Tab label="Популярные" />
-                    <Tab label="По порядку" />
-                </Tabs>
                 <Divider />
-                <AddCommentForm />
+                <AddCommentForm newsId={newsId} addComment={addComment} />
                 <div className="mb-20"/>
                 {
-                    items.map(obj => <Comment key={obj.id} user={obj.user} text={obj.text} createdAt={obj.createdAt} />)
+                    comments.map(obj => <Comment key={obj.id} id={obj.id} user={obj.userId} text={obj.text} post={obj.postId} createdAt={obj.createAt} deleteComment={deleteComment}/>)
                 }
             </div>
         </Paper>

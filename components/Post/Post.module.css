@@ -1,3 +1,10 @@
-
+.post-inner {
+  position: relative !important;
+}
+.post-panel {
+  position: absolute !important;
+  right: 10px;
+  top: 10px;
+}
 
 /*# sourceMappingURL=Post.module.css.map */

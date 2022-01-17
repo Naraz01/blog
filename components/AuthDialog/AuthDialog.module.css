@@ -1,0 +1,34 @@
+.content {
+  width: 70%;
+  margin: 30px auto;
+}
+.content button {
+  position: relative;
+}
+.content button svg {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  font-size: 18px;
+  color: black !important;
+  margin-bottom: 15px;
+  font-weight: 500 !important;
+}
+
+.backTitle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.backTitle:hover {
+  color: #4683d9;
+}
+.backTitle svg {
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=AuthDialog.module.css.map */

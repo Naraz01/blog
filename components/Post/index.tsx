@@ -1,25 +1,31 @@
 import React from 'react'
 import Link from 'next/link';
-import Image from "next/image";
-import {Paper, Typography} from "@material-ui/core";
+import {IconButton, Menu, MenuItem, Paper, Typography} from "@material-ui/core";
 
 import styles from './Post.module.scss';
 import {PostActions} from "../PostActions";
 
-export const Post: React.FC = () => {
+interface PostProps {
+    id: number;
+    title: string;
+    body: string;
+    createAt: string;
+    user: 1
+}
+
+export const Post: React.FC<PostProps> = ({id, title, body, createAt, user}) => {
     return (
-        <Paper elevation={0} className="p-20" classes={{ root: styles.paper }}>
+        <Paper elevation={0} className="post-inner p-20" classes={{ root: styles.paper }}>
             <Typography variant="h5" className={styles.title}>
-                <Link href="/news/test-123">
+                <Link href={`/news/${id}`}>
                     <a>
-                        Кот прилёг отдознуть в английском парке минатюр и стал героем шуток
+                        {title}
                     </a>
                 </Link>
             </Typography>
             <Typography className="mt-10 md-15">
-                Пока одни не могли соотнести размеры животного и окуружения, другие начали
+                {body}
             </Typography>
-          
             <PostActions />
         </Paper>
     )

@@ -1,0 +1,10 @@
+.post {
+  &-inner {
+    position: relative !important;
+  }
+  &-panel {
+    position: absolute !important;
+    right: 10px;
+    top: 10px;
+  }
+}

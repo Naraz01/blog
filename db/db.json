@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "user11",
+      "surname": "user222",
+      "location": "astana",
+      "status": "work",
+      "email": "string",
+      "password": "string",
+      "createAt": "Date"
+    },
+    {
+      "id": 2,
+      "name": "user11",
+      "surname": "user222",
+      "location": "astana",
+      "status": "work",
+      "email": "string2",
+      "password": "string2",
+      "createAt": "Date2"
+    },
+    {
+      "id": 3,
+      "fullName": "string3",
+      "email": "string3",
+      "password": "string3",
+      "createAt": "Date3"
+    }
+  ],
+  "posts": [
+    {
+      "id": 3,
+      "title": "загаловкаdd",
+      "body": "ntrcn  ddddfv  cvcxvxc 44 jdsrrrr 9999 999",
+      "createAt": "Date3",
+      "user": 2
+    },
+    {
+      "title": "пример4",
+      "body": "пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример4 пример49",
+      "createAt": "Date",
+      "user": 1,
+      "id": 7
+    }
+  ],
+  "comments": [
+    {
+      "text": "kkkkkkkkkkk",
+      "userId": 1,
+      "postId": 3,
+      "createAt": "Date",
+      "id": 1
+    }
+  ]
+}
